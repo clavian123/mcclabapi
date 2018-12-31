@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/create', function (req,res){
+router.get('/cryeate', function (req,res){
   connection.query('DROP TABLE user_courses', function(r,re){
     connection.query('CREATE TABLE user_courses(id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, course_id INT)', function(err, results){
       if (err){
@@ -26,6 +26,8 @@ router.get('/create', function (req,res){
       }
     });
   })
+
+
 
   connection.query('DROP TABLE courses', function(r,re){
     connection.query('CREATE TABLE courses(id INT, main_course_name VARCHAR(255), course_name VARCHAR(255), link VARCHAR(255), description VARCHAR(255))', function(err, results){
