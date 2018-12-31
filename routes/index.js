@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/cryeate', function (req,res){
+router.get('/create', function (req,res){
   connection.query('DROP TABLE user_courses', function(r,re){
     connection.query('CREATE TABLE user_courses(id INT AUTO_INCREMENT PRIMARY KEY, user_id INT, course_id INT)', function(err, results){
       if (err){
@@ -22,12 +22,10 @@ router.get('/cryeate', function (req,res){
       }
       else{
         connection.query('INSERT INTO user_courses(user_id, course_id) VALUES(1, 3)');
-        console.log('created user_courses table')
+        console.log('created user_courses table');
       }
     });
   })
-
-
 
   connection.query('DROP TABLE courses', function(r,re){
     connection.query('CREATE TABLE courses(id INT, main_course_name VARCHAR(255), course_name VARCHAR(255), link VARCHAR(255), description VARCHAR(255))', function(err, results){
@@ -43,7 +41,18 @@ router.get('/cryeate', function (req,res){
         connection.query(query,[5, "Algorithm and Programming", "[Algorithm Session 05] - Array", "https://www.youtube.com/embed/RJkY-5hJq3k", "Topics: - Creating a modular program using array 1D - Creating a modular program using array 2D"]);
         console.log('created course table');
       }
-      return res.json({message: "success"});
+    })
+  })
+
+  connection.query('DROP TABLE user', function(rq,rs){
+    connection.query('CREATE TABLE user(id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), phone_number VARCHAR(255), password VARCHAR(255))', function(err,results){
+      if(err){
+        return res.json({message:err.message});
+      }
+      else{
+        connection.query('INSERT INTO user(username, email, phone_number, password) VALUES(?,?,?,?)', ["Clavian", "clavian123@gmail.com", "123456798", "qweojasojkd"]);
+      }
+      return res.json({message:"success"})
     })
   })
 })
