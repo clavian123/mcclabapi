@@ -6,7 +6,6 @@ function get_user_course(){
             userid: 1
         }
     })
-
     usercourses.done(function(results){
         console.log(results);
     })
@@ -39,6 +38,15 @@ function assign_course(){
         console.log(results)
     })
 }
+// function facebook_login(){
+//     var facebook_login = $.ajax({
+//         url:'/get_user',
+//         type:'POST',
+//         data:{
+//             fbid:
+//         }
+//     })
+// }
 $(function(){
     get_user_course();
     // get_detail();

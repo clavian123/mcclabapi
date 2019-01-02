@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
 
 var mysql = require('mysql');
 var connection = mysql.createConnection({
@@ -45,12 +47,12 @@ router.get('/create', function (req,res){
   })
 
   connection.query('DROP TABLE user', function(rq,rs){
-    connection.query('CREATE TABLE user(id INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(255), email VARCHAR(255), phone_number VARCHAR(255), password VARCHAR(255))', function(err,results){
+    connection.query('CREATE TABLE user(id INT AUTO_INCREMENT PRIMARY KEY,fbid VARCHAR(255), username VARCHAR(255), email VARCHAR(255), phone_number VARCHAR(255), password VARCHAR(255))', function(err,results){
       if(err){
         return res.json({message:err.message});
       }
       else{
-        connection.query('INSERT INTO user(username, email, phone_number, password) VALUES(?,?,?,?)', ["Clavian", "clavian123@gmail.com", "123456798", "qweojasojkd"]);
+        connection.query('INSERT INTO user(fbid, username, email, phone_number, password) VALUES(?,?,?,?,?)', ["qwiduhasduahsdoqwe123","Clavian", "clavian123@gmail.com", "123456798", "qweojasojkd"]);
       }
       return res.json({message:"success"})
     })
@@ -113,6 +115,36 @@ router.post('/assign_course', function(req,res){
         course_id : course_id,
         status : "success"
       })
+    }
+  })
+})
+
+// router.post('/insert_user', function(req,res){
+//   var email = req.body.email;
+//   var username = req.body.username;
+//   var password = req.body.password;
+//   var fbid = req.body.fbid;
+//   var phone_number = req.body.phone_number;
+//   connection.query('INSERT INTO user(fbid, username, email, phone_number, password) VALUES(?,?,?,?,?)', [fbid, username, email, phone_number, password], function(err,results){
+//     if(err){
+//       return res.json({message:err.message});
+//     }
+//     else{
+//       return res.json(results[0]);
+//     }
+//   })
+// })
+
+router.post('/get_user', function(req,res){
+  var fbid = req.body.fbid;
+  connection.query('SELECT * FROM user WHERE fbid=?',[fbid],function(err,results){
+    if(err){
+      return res.json({
+        message: err.message
+      })
+    }
+    else{
+        return res.json(results[0]);
     }
   })
 })
