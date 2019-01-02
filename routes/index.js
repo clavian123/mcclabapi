@@ -52,7 +52,7 @@ router.get('/create', function (req,res){
         return res.json({message:err.message});
       }
       else{
-        connection.query('INSERT INTO user(fbid, username, email, phone_number, password) VALUES(?,?,?,?,?)', ["qwiduhasduahsdoqwe123","Clavian", "clavian123@gmail.com", "123456798", "qweojasojkd"]);
+        // connection.query('INSERT INTO user(fbid, username, email, phone_number, password) VALUES(?,?,?,?,?)', ["qwiduhasduahsdoqwe123","Clavian", "clavian123@gmail.com", "123456798", "qweojasojkd"]);
       }
       return res.json({message:"success"})
     })
@@ -74,7 +74,7 @@ router.get('/courses', function(req,res){
 router.post('/user_courses', function(req,res){
   var user_id=req.body.userid;
 
-  connection.query('SELECT courses.id, main_course_name, course_name, description FROM user_courses JOIN courses ON user_courses.course_id = courses.id WHERE user_id=?', [user_id], function(err,results){
+  connection.query('SELECT courses.id, main_course_name, course_name, description, link FROM user_courses JOIN courses ON user_courses.course_id = courses.id WHERE user_id=?', [user_id], function(err,results){
     if(err){
       return res.json({
         message: err.message
