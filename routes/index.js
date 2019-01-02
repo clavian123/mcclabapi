@@ -11,6 +11,15 @@ var connection = mysql.createConnection({
   database : "heroku_30631074981c2d1"
 });
 
+connection.on('error',function (err){
+  connection = mysql.createConnection({
+    host : "eu-cdbr-west-02.cleardb.net",
+    user : "bda3ab0092b9fe",
+    password : "c903136f",
+    database : "heroku_30631074981c2d1"
+  });
+})
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
