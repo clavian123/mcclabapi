@@ -158,4 +158,15 @@ router.post('/get_user', function(req,res){
   })
 })
 
+router.get('/user', function(req,res){
+  connection.query('SELECT * FROM user',function(err,results){
+    if(err){
+      return res.json({message:err.message})
+    }
+    else{
+      return res.json({results})
+    }
+  })
+})
+
 module.exports = router;
