@@ -32,7 +32,7 @@ router.get('/create', function (req,res){
         return res.json({message: err.message});
       }
       else{
-        connection.query('INSERT INTO user_courses(user_id, course_id) VALUES(1, 3)');
+        // connection.query('INSERT INTO user_courses(user_id, course_id) VALUES(1, 3)');
         console.log('created user_courses table');
       }
     });
